@@ -65,7 +65,9 @@ def show_pokemon(request, pokemon_id):
         'pokemon_id': pokemon.id,
         'img_url': request.build_absolute_uri(pokemon.image.url) if pokemon.image else None,
         'title_ru': pokemon.title,
-        'description': pokemon.description
+        'description': pokemon.description,
+        'title_en': pokemon.title_en,
+        'title_jp': pokemon.title_jp
     }
     pokemons = PokemonEntity.objects.filter(
         disappeared_at__gte=django.utils.timezone.localtime(),
