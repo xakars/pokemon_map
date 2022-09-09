@@ -72,9 +72,13 @@ def show_pokemon(request, pokemon_id):
             'title_ru': pokemon.previous_evolution.title,
             'img_url': request.build_absolute_uri(pokemon.previous_evolution.image.url) if pokemon.image else None,
             'pokemon_id': pokemon.previous_evolution.id
+        },
+        'next_evolution': None if not pokemon.next_evolutions.all() else {
+            'title_ru': pokemon.next_evolutions.all()[0].title,
+            'img_url': request.build_absolute_uri(pokemon.next_evolutions.all()[0].image.url) if pokemon.image else None,
+            'pokemon_id': pokemon.next_evolutions.all()[0].id
         }
     }
-    print(about_pokemon)
     pokemons = PokemonEntity.objects.filter(
         disappeared_at__gte=django.utils.timezone.localtime(),
         appeared_at__lte=django.utils.timezone.localtime(),
