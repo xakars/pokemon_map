@@ -3,7 +3,7 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     """Покемон"""
     title = models.CharField('Название покемона',max_length=200)
-    image = models.ImageField('Изображение покемона', null=True, blank=True)
+    image = models.ImageField('Изображение покемона', null=True)
     description = models.TextField('Описание покемона', null=True, blank=True)
     title_en = models.CharField('Название покемона на англ.', null=True, blank=True, max_length=200)
     title_jp = models.CharField('Название покемона на япон.', null=True, blank=True, max_length=200)
@@ -23,8 +23,8 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(Pokemon,
                                 on_delete=models.CASCADE,
                                 verbose_name='Покемон')
-    lat = models.FloatField('Широта')
-    lon = models.FloatField('Долгота')
+    lat = models.FloatField('Широта', blank=True)
+    lon = models.FloatField('Долгота', blank=True)
     appeared_at = models.DateTimeField('Дата и Время появления', null=True, blank=True)
     disappeared_at = models.DateTimeField('Дата и Время исчезновения', null=True, blank=True)
     level = models.IntegerField('Уровень', null=True, blank=True)
