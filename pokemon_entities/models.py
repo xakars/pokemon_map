@@ -4,9 +4,9 @@ class Pokemon(models.Model):
     """Покемон"""
     title = models.CharField('Название покемона',max_length=200)
     image = models.ImageField('Изображение покемона', null=True)
-    description = models.TextField('Описание покемона', null=True, blank=True)
-    title_en = models.CharField('Название покемона на англ.', null=True, blank=True, max_length=200)
-    title_jp = models.CharField('Название покемона на япон.', null=True, blank=True, max_length=200)
+    description = models.TextField('Описание покемона', blank=True)
+    title_en = models.CharField('Название покемона на англ.', blank=True, max_length=200)
+    title_jp = models.CharField('Название покемона на япон.', blank=True, max_length=200)
     previous_evolution = models.ForeignKey('self',
                                            null=True,
                                            verbose_name='Из кого эволюционирует',
