@@ -73,16 +73,15 @@ def show_pokemon(request, pokemon_id):
             'img_url': request.build_absolute_uri(pokemon.previous_evolution.image.url) if pokemon.image else None,
             'pokemon_id': pokemon.previous_evolution.id
         },
-        'next_evolution': None if not pokemon.next_evo.all() else {
-            'title_ru': pokemon.next_evo.all()[0].title,
-            'img_url': request.build_absolute_uri(pokemon.next_evo.all()[0].image.url) if pokemon.image else None,
-            'pokemon_id': pokemon.next_evo.all()[0].id
+        'next_evolution': None if not pokemon.next_evolutions.first() else {
+            'title_ru': pokemon.next_evolutions.first().title,
+            'img_url': request.build_absolute_uri(pokemon.next_evolutions.first().image.url) if pokemon.image else None,
+            'pokemon_id': pokemon.next_evolutions.first().id
         }
     }
-    pokemon_entities = PokemonEntity.objects.filter(
+    pokemon_entities = pokemon.entities.filter(
         disappeared_at__gte=django.utils.timezone.localtime(),
-        appeared_at__lte=django.utils.timezone.localtime(),
-        pokemon=pokemon.id
+        appeared_at__lte=django.utils.timezone.localtime()
     )
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
